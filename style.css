@@ -1,0 +1,198 @@
+/* Custom Theme & Inter Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+:root {
+    --color-primary: #0077b6; /* Blue */
+    --color-secondary: #00b4d8; /* Light Blue */
+    --color-bg-light: #f4f7fb;
+    --color-bg-dark: #071021;
+    --color-text-light: #1f2937;
+    --color-text-dark: #e6eef8;
+    --color-card-light: #ffffff;
+    --color-card-dark: #1e293b;
+    --radius-lg: 1rem;
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main { flex-grow: 1; }
+
+/* Dark Mode */
+body.dark {
+    --color-primary: #1c5e7b;
+    --color-secondary: #00b4d8;
+    --color-bg-light: #071021;
+    --color-bg-dark: #071021;
+    --color-text-light: #e6eef8;
+    --color-text-dark: #e6eef8;
+    --color-card-light: #1e293b;
+    --color-card-dark: #1e293b;
+}
+
+/* Utility Components */
+.app-container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1rem; }
+.card { 
+    background-color: var(--color-card-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+    transition: all var(--transition-speed);
+}
+body.dark .card { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); }
+
+.btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+    border: none;
+}
+.btn-primary { 
+    background-color: var(--color-primary); 
+    color: white; 
+}
+.btn-primary:hover { 
+    background-color: var(--color-secondary);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0, 119, 182, 0.3);
+}
+.btn-ghost {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+body.dark .btn-ghost { color: var(--color-secondary); border-color: var(--color-secondary); }
+
+/* Navigation */
+.navbar {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.navbar a { color: white; text-decoration: none; font-weight: 600; }
+.nav-links { display: flex; gap: 1.5rem; }
+.nav-link { cursor: pointer; padding: 0.5rem; border-radius: 0.5rem; }
+.nav-link:hover { background-color: rgba(255, 255, 255, 0.1); }
+
+/* Login/Signup Flashcard Style */
+.login-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+}
+.flashcard-wrapper {
+    perspective: 1000px;
+}
+.flashcard {
+    width: 360px;
+    height: 500px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+}
+.flashcard.flipped {
+    transform: rotateY(180deg);
+}
+.flashcard-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+}
+.flashcard-back {
+    transform: rotateY(180deg);
+}
+.flashcard-face h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+.flashcard-face input {
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    width: 100%;
+    transition: border-color 0.2s;
+}
+.flashcard-face input:focus { border-color: var(--color-primary); outline: none; }
+.flashcard-face .message { font-size: 0.9rem; color: #dc2626; height: 1.5rem; }
+.flip-text { cursor: pointer; color: var(--color-primary); font-size: 0.9rem; margin-top: 1rem; }
+
+/* Modal for Destination Details */
+.modal-overlay {
+    position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); z-index: 1000;
+    display: flex; justify-content: center; align-items: center; opacity: 0;
+    transition: opacity 0.3s; pointer-events: none;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal-content {
+    background-color: var(--color-card-light);
+    border-radius: var(--radius-lg);
+    width: 90%; max-width: 900px; max-height: 90vh; overflow-y: auto;
+    transform: translateY(-50px); transition: transform 0.3s;
+    position: relative; padding: 0;
+}
+.modal-overlay.open .modal-content { transform: translateY(0); }
+.modal-close { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; z-index: 20; color: white; cursor: pointer; }
+
+.modal-header img { width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+.modal-body-content { padding: 1.5rem; display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+#modal-map { height: 200px; border-radius: 0.75rem; }
+
+/* Destination Grid */
+.destination-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.dest-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 0.75rem 0.75rem 0 0; }
+.dest-card-body { padding: 1rem; }
+.dest-card-body h3 { font-weight: 700; font-size: 1.25rem; margin-bottom: 0.5rem; }
+.dest-card-body p { font-size: 0.9rem; color: #6b7280; }
+
+/* Toast Notification */
+#app-toast {
+    position: fixed; bottom: 20px; right: 20px; background-color: #333; color: white;
+    padding: 10px 20px; border-radius: 0.5rem; z-index: 3000; opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateX(100%);
+}
+#app-toast.show { opacity: 1; transform: translateX(0); }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; gap: 1rem; }
+    .nav-links { justify-content: center; flex-wrap: wrap; }
+    .modal-body-content { grid-template-columns: 1fr; }
+    .flashcard { width: 90%; height: auto; padding: 2rem; }
+    .flashcard-face { height: auto; min-height: 400px; }
+    .app-container { padding: 1rem 0.5rem; }
+}

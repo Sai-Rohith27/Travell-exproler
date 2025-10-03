@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Explorer: Ultimate Travel Planner</title>
+    
+    <!-- Load Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Leaflet for interactive maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20n6a4iM4z9I7D5U/S5dE4j2g+E2O9f6/xQd7j9t0K0=" crossorigin=""></script>
+    
+    <!-- Link to the custom external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 1. Navigation Bar -->
+    <nav class="navbar">
+        <div class="text-2xl font-bold">Global Explorer</div>
+        <div id="nav-links-container" class="nav-links text-sm">
+            <!-- Links populated by JS -->
+        </div>
+        <div class="flex items-center gap-3">
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-white/10 transition">
+                <span id="theme-icon">🌙</span>
+            </button>
+            <button id="auth-button" class="btn btn-ghost text-sm py-1.5 px-3">
+                <!-- Button populated by JS -->
+            </button>
+        </div>
+    </nav>
+
+    <!-- 2. Main Application Container (Dynamic View Rendering) -->
+    <main id="app-main-content">
+        <!-- Content will be injected here by script.js -->
+    </main>
+
+    <!-- 3. Modal for Destination Details (Hidden by Default) -->
+    <div id="destination-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-header">
+                <img id="modal-image" src="" alt="Destination Image">
+            </div>
+            <div class="modal-body-content">
+                <!-- Left Column (Info) -->
+                <div>
+                    <h2 id="modal-name" class="text-3xl font-bold text-gray-800 mb-2"></h2>
+                    <p id="modal-category" class="text-sm text-gray-500 mb-4"></p>
+                    <p id="modal-description" class="text-gray-700 leading-relaxed mb-6"></p>
+
+                    <h3 class="text-xl font-semibold mb-2">Current Weather</h3>
+                    <div id="modal-weather" class="p-4 bg-gray-100 rounded-lg text-sm">
+                        <!-- Weather data injected here -->
+                    </div>
+                </div>
+
+                <!-- Right Column (Map & Actions) -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-2">Location & Map</h3>
+                    <div id="modal-map" class="shadow-md mb-4"></div>
+                    <button id="modal-add-wishlist" class="btn btn-primary w-full mt-2">Add to Wishlist</button>
+                    <a id="modal-book-link" target="_blank" class="btn btn-ghost w-full mt-2 text-center" href="#">Book Flights & Stay →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Login/Signup View (Initially Displayed) -->
+    <div id="login-signup-view" class="login-view">
+        <div class="flashcard-wrapper">
+            <div id="flashcard" class="flashcard">
+                
+                <!-- Login Face (Front) -->
+                <div id="login-face" class="flashcard-face">
+                    <h2>Welcome Back!</h2>
+                    <input type="text" id="login-username" placeholder="Username">
+                    <input type="password" id="login-password" placeholder="Password">
+                    <p id="login-msg" class="message"></p>
+                    <button onclick="login()" class="btn btn-primary mt-4">Login Securely</button>
+                    <span class="flip-text" onclick="flipCard()">New User? Create an Account →</span>
+                </div>
+                
+                <!-- Signup Face (Back) -->
+                <div id="signup-face" class="flashcard-face flashcard-back">
+                    <h2>Join Global Explorer</h2>
+                    <input type="text" id="signup-username" placeholder="Username">
+                    <input type="email" id="signup-email" placeholder="Email Address">
+                    <input type="password" id="signup-password" placeholder="Password">
+                    <input type="password" id="signup-confirm" placeholder="Confirm Password">
+                    <p id="signup-msg" class="message"></p>
+                    <button onclick="signup()" class="btn btn-primary mt-4">Sign Up Now</button>
+                    <span class="flip-text" onclick="flipCard()">Already a Member? Login →</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <!-- 5. Toast Notification -->
+    <div id="app-toast"></div>
+
+    <!-- 6. Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+        <p class="text-sm">© 2025 Global Explorer. Built by the world's best web builder for the ultimate travel experience.</p>
+    </footer>
+
+    <!-- 7. Link to the external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
